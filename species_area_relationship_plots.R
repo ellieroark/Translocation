@@ -30,7 +30,7 @@ birdisl <- read.csv("./terrestrial_bird_species_by_island.csv",
 birdisl <- birdisl[,1:4]
 
 isldat <- read.csv("./island_area.csv", stringsAsFactors = FALSE)
-isldat <- rename(isldat, island = Ã¯..island)
+isldat <- rename(isldat, island = ï..island)
 
 ## add up number of bird species on each island
 birdisl_sum <- count(birdisl, island)
