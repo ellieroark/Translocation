@@ -1,0 +1,490 @@
+---
+title: "Guguan Sampling Overview"
+author: "Andris Bibelnieks"
+date: "3/15/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Packages}
+library(tidyverse)
+library(gt)
+library(tictoc)
+library(readxl)
+
+# Suppress summarize group_by info
+options(dplyr.summarise.inform = FALSE)
+```
+
+```{r Data}
+# Read first sheet from excel
+gug_dat1 <- readxl::read_xlsx("Data/Guguan forest bird surveys 2016.xlsx", sheet = 1)
+
+# Clean
+gug_dat1 <- gug_dat1 %>% 
+            rename(
+              Transect = `...1`,          # Name first 2 cols
+              Point = `...2`
+            )  %>% 
+            .[-nrow(.),] %>%              # Remove last row with totals
+            fill(Transect) %>%            # Fill in blanks for transect
+            mutate(
+              across(MIST:BRWE,
+                     ~replace_na(.x, 0)), # Change remaining NAs (counts) to 0
+              Transect = as.numeric(gsub("\\D*", "", Transect))
+            ) %>%           
+            pivot_longer(                 # Pivot longer to make tidy
+              MIST:BRWE,
+              names_to = "Species_Code",
+              values_to = "Count"
+            )
+
+# Read second sheet from excel
+gug_dat2 <- readxl::read_xlsx("Data/Guguan forest bird surveys 2016.xlsx", sheet = 2) %>%
+              rename(Type = `Forest OR Grassland`)
+
+# Join habitat type to aggregated counts from sheet 1
+gug_dat1 <- gug_dat1 %>%
+            left_join(
+              gug_dat2 %>% 
+                select(Transect, Point, Type) %>%
+                unique(),
+              by = c("Transect", "Point")
+            )
+```
+
+```{r Explore}
+# Mean detections per station by type
+gug_dat1 %>%
+  group_by(Species_Code, Type) %>%
+  summarise(Detections = sum(Count), Points = n(), Mean_Det = Detections/Points)
+
+# Points per transect by type
+gug_dat1 %>% 
+  select(Transect, Point, Type) %>%
+  unique() %>%
+  group_by(Transect, Type) %>%
+  summarize(n = n()) %>%
+  pivot_wider(id_cols = Transect,
+              names_from = Type,
+              names_prefix = "n",
+              values_from = n,
+              values_fill = 0)
+
+# Type of each station in each transect
+gug_dat1 %>% 
+  select(Transect, Point, Type) %>%
+  unique()
+
+```
+
+```{r Bootstrap Function}
+# Bootstrap CIs for abundance with option to simulate fewer survey points.
+# @param species Species code
+# @param dat Dataframe with Transect, Point, Species_Code, Count, and Type (e.g. gug_dat1)
+# @param nboot Number of bootstrap iterations (default 100)
+# @param transects Transects to include (default 1 through 5)
+# @param pts dataframe with number of G and F points to resample within each transect (default all, see examples later)
+#
+# @return List of 2 dataframes, one with bootstrapped detections/station and another with bootstrapped abundance estimates. 
+#         For detections, estimates for F and G types. For abundance, estimates for F, G, and Total.
+#
+boot_abundance <- function(species, dat, nboot=10^2, transects = 1:5, pts = NULL, verbose = TRUE) {
+  # species = "MIST"; dat = gug_dat1; nboot = 10^2; transects = 1; pts = NULL; verbose = TRUE
+  
+  if(verbose){
+    print(sprintf("Bootstrapping for %s", species))
+    tictoc::tic()
+  }
+  
+  # Get data for that species
+  bdat <- dat %>%
+          filter(Species_Code == species &
+                   Transect %in% transects)
+  
+  # Define points within each transect to resample
+  if(is.null(pts)) {
+    pts <- bdat %>%
+            select(Transect, Point, Type) %>%
+            unique() %>%
+            group_by(Transect, Type) %>%
+            summarize(n = n()) %>%
+            pivot_wider(id_cols = Transect,
+                        names_from = Type,
+                        names_prefix = "n",
+                        values_from = n,
+                        values_fill = 0)
+    
+    # Check that both nG and nF are defined
+    if(!"nF" %in% names(pts)) {
+      pts$nF <- 0
+    }
+    if(!"nG" %in% names(pts)) {
+      pts$nG <- 0
+    }
+  }
+  
+  # i=1;t=1
+  boot_nF <- numeric(nboot)
+  boot_nG <- numeric(nboot)
+  for(i in 1:nboot) {
+    for(t in 1:length(transects)) {
+      # Get F and G counts from transect to resample from
+      pop <- bdat %>% 
+              filter(Transect == transects[t])
+      
+      F_cts <- pop %>% 
+                filter(Type == "F") %>%
+                select(Count) %>%
+                pull()
+      G_cts <- pop %>% 
+                filter(Type == "G") %>%
+                select(Count) %>%
+                pull()
+      # Get number of points to resample
+      t_pts <- pts[which(pts$Transect == transects[t]),]
+      
+      # Resample and sum to get total count from each habitat type from this transect
+      F_boot <- sum(sample(F_cts, t_pts$nF, replace = TRUE))
+      G_boot <- sum(sample(G_cts, t_pts$nG, replace = TRUE))
+      
+      boot_nF[i] <- boot_nF[i] + F_boot
+      boot_nG[i] <- boot_nG[i] + G_boot
+    }
+  }
+  
+  # Convert boot counts to counts per station
+  boot_nF <- case_when(
+              sum(pts$nF) >0 ~ boot_nF/sum(pts$nF), 
+              TRUE ~ 0
+              )
+  boot_nG <- case_when(
+              sum(pts$nG) >0 ~ boot_nG/sum(pts$nG), 
+              TRUE ~ 0
+              )
+  # Convert to F and G abundances
+  boot_abF <- boot_nF * (165.7/(pi*0.25))
+  boot_abG <- boot_nG * (254.4/(pi*0.25))
+  # Sum for total abundance
+  boot_ab <- boot_abF + boot_abG
+
+  ret <- list(det = tibble(Species_Code = species,
+                     Type = c("F", "G"),
+                     BMean = c(mean(boot_nF), mean(boot_nG)),
+                     Lower = c(quantile(boot_nF, 0.05), quantile(boot_nG, 0.05)),
+                     Upper = c(quantile(boot_nF, 0.95), quantile(boot_nG, 0.95))
+                    ),
+              ab = tibble(Species_Code = species,
+                    Type = c("F", "G", "Total"),
+                    BMean = c(mean(boot_abF), mean(boot_abG), mean(boot_ab)),
+                    Lower = c(quantile(boot_abF, 0.05), quantile(boot_abG, 0.05), quantile(boot_ab, 0.05)),
+                    Upper = c(quantile(boot_abF, 0.95), quantile(boot_abG, 0.95), quantile(boot_ab, 0.95))
+                    )
+              )
+    
+  if(verbose) {
+    tictoc::toc()
+  }
+ 
+  return(ret)
+}
+
+```
+
+```{r Summary Functions}
+# Summarize abundance bootstrapping with gt table
+#
+# @param boot_dat Dataframe from boot_abundance
+#
+# @return gt summary table
+#
+abundance_table <- function(boot_dat) {
+  gt_dat <- boot_dat %>% 
+              pivot_wider(id_cols = Species_Code,
+                          names_from = Type,
+                          values_from = BMean:Upper) 
+  gt_dat %>%
+    gt() %>%
+    tab_header( 
+      title = "Bootstrapped Abundance Estimates"
+    ) %>%
+    tab_spanner(
+      label = "Forest",
+      columns = grep("_F", names(gt_dat), value = TRUE)
+    ) %>%
+    tab_spanner(
+      label = "Non-Forest",
+      columns = grep("_G", names(gt_dat), value = TRUE)
+    ) %>%
+    tab_spanner(
+      label = "Total",
+      columns = grep("_Total", names(gt_dat), value = TRUE)
+    ) %>%
+    cols_label(
+      Species_Code = "Species Code",
+      BMean_F = "Mean",
+      Lower_F = "Lower",
+      Upper_F = "Upper",
+      BMean_G = "Mean",
+      Lower_G = "Lower",
+      Upper_G = "Upper",
+      BMean_Total = "Mean",
+      Lower_Total = "Lower",
+      Upper_Total = "Upper",
+    ) %>%
+    fmt_number(
+      columns = names(gt_dat[-1]),
+      decimals = 0
+    ) %>%
+    data_color(
+      columns = grep("Lower|Upper", names(gt_dat), value = TRUE),
+      colors = scales::col_numeric(
+        palette = c("lightgray"),
+        domain = NULL)
+    ) %>%
+    data_color(
+      columns = grep("Mean", names(gt_dat), value = TRUE),
+      colors = scales::col_numeric(
+        palette = c("gray"),
+        domain = NULL)
+    )
+}
+
+# Plot estimated abundances
+# 
+# @param boot_dat Dataframe from boot_abundance
+# @parm species Vector of species codes to include
+#
+# @return ggplot of estimated abundances
+#
+abundance_plot <- function(boot_dat, species = NULL) {
+  
+  if(!is.null(species)) {
+    boot_dat <- boot_dat %>%
+                  filter(Species_Code %in% species)
+  }
+  
+  plt <- boot_dat %>%
+          ggplot(aes(x = Species_Code, y = BMean)) +
+          geom_bar(stat = "identity") +
+          geom_errorbar(aes(x = Species_Code, ymin = Lower, ymax = Upper)) +
+          facet_wrap(~Type) +
+          labs(title = "Bootstrapped Abundance Estimates",
+               x = "Species Code",
+               y = "Abundance") +
+          theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
+  
+  return(plt)
+}
+
+# Plot estimated abundances compared between two scenarios.
+# 
+# @param boot_dat Dataframe from boot_abundance
+# @parm species Vector of species codes to include
+#
+# @return ggplot of estimated abundances
+#
+abundance_plot_comp <- function(boot1, boot2, species = NULL) {
+  
+  boot_combo <- bind_rows(boot1 %>%
+                            mutate(Config = "Original"),
+                          boot2 %>%
+                            mutate(Config = "Modified"))
+  if(!is.null(species)) {
+    boot_combo <- boot_combo %>%
+                    filter(Species_Code %in% species)
+  }
+  
+  plt <- boot_combo %>%
+          ggplot(aes(x = Species_Code, y = BMean, fill = Config)) +
+          geom_bar(stat = "identity", position = "dodge") +
+          geom_errorbar(aes(x = Species_Code, ymin = Lower, ymax = Upper), position = "dodge") +
+          facet_wrap(~Type) +
+          labs(title = "Bootstrapped Abundance Estimates",
+               x = "Species Code",
+               y = "Abundance") +
+          theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
+  
+  return(plt)
+}
+
+# Summarize detection bootstrapping with gt table
+#
+# @param boot_dat Dataframe from boot_abundance
+#
+# @return gt summary table
+#
+det_table <- function(boot_dat) {
+  gt_dat <- boot_dat %>% 
+              pivot_wider(id_cols = Species_Code,
+                          names_from = Type,
+                          values_from = BMean:Upper) 
+  gt_dat %>%
+    gt() %>%
+    tab_header( 
+      title = "Bootstrapped Detection Estimates"
+    ) %>%
+    tab_spanner(
+      label = "Forest",
+      columns = grep("_F", names(gt_dat), value = TRUE)
+    ) %>%
+    tab_spanner(
+      label = "Non-Forest",
+      columns = grep("_G", names(gt_dat), value = TRUE)
+    ) %>%
+    cols_label(
+      Species_Code = "Species Code",
+      BMean_F = "Mean",
+      Lower_F = "Lower",
+      Upper_F = "Upper",
+      BMean_G = "Mean",
+      Lower_G = "Lower",
+      Upper_G = "Upper"
+    ) %>%
+    fmt_number(
+      columns = names(gt_dat[-1]),
+      decimals = 2
+    ) %>%
+    data_color(
+      columns = grep("Lower|Upper", names(gt_dat), value = TRUE),
+      colors = scales::col_numeric(
+        palette = c("lightgray"),
+        domain = NULL)
+    ) %>%
+    data_color(
+      columns = grep("Mean", names(gt_dat), value = TRUE),
+      colors = scales::col_numeric(
+        palette = c("gray"),
+        domain = NULL)
+    )
+}
+
+# Plot estimated detections per station
+# 
+# @param boot_dat Dataframe from boot_abundance
+# @parm species Vector of species codes to include
+#
+# @return ggplot of estimated detections per station
+#
+det_plot <- function(boot_dat, species = NULL) {
+  
+  if(!is.null(species)) {
+    boot_dat <- boot_dat %>%
+                  filter(Species_Code %in% species)
+  }
+  
+  plt <- boot_dat %>%
+          ggplot(aes(x = Species_Code, y = BMean)) +
+          geom_bar(stat = "identity") +
+          geom_errorbar(aes(x = Species_Code, ymin = Lower, ymax = Upper)) +
+          facet_wrap(~Type) +
+          labs(title = "Bootstrapped Detection Estimates",
+               x = "Species Code",
+               y = "Detections/Station") +
+          theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
+  
+  return(plt)
+}
+
+# Plot estimated detections per station compared between two scenarios.
+# 
+# @param boot_dat Dataframe from boot_abundance
+# @parm species Vector of species codes to include
+#
+# @return ggplot of estimated detections per station
+#
+det_plot_comp <- function(boot1, boot2, species = NULL) {
+  
+  boot_combo <- bind_rows(boot1 %>%
+                            mutate(Config = "Original"),
+                          boot2 %>%
+                            mutate(Config = "Modified"))
+  if(!is.null(species)) {
+    boot_combo <- boot_combo %>%
+                    filter(Species_Code %in% species)
+  }
+  
+  plt <- boot_combo %>%
+          ggplot(aes(x = Species_Code, y = BMean, fill = Config)) +
+          geom_bar(stat = "identity", position = "dodge") +
+          geom_errorbar(aes(x = Species_Code, ymin = Lower, ymax = Upper), position = "dodge") +
+          facet_wrap(~Type) +
+          labs(title = "Bootstrapped Detection Estimates",
+               x = "Species Code",
+               y = "Detections/Station") +
+          theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
+  
+  return(plt)
+}
+```
+
+```{r Table 4 Plus CI}
+# Bootstrap with original survey configuration to get CIs etc. for all species
+booted_og <- gug_dat1$Species_Code %>%
+                unique() %>%
+                lapply(boot_abundance,
+                       dat = gug_dat1,
+                       nboot = 10^2,
+                       transects = 1:5,
+                       pts = NULL,
+                       verbose = TRUE
+                 )
+# Pull out abundance and detection estimates and combine into dataframes for all species.
+ab_og <- bind_rows(lapply(booted_og, function(x){return(x$ab)}))
+det_og <- bind_rows(lapply(booted_og, function(x){return(x$det)}))
+
+
+# Tabular summary
+abundance_table(ab_og)
+det_table(det_og)
+
+# Plot summary - Separate species (roughly) by magnitudes of counts
+abundance_plot(ab_og, species = c("MIST", "MIHO", "MIME"))
+abundance_plot(ab_og, species = c("WTGD", "COKI", "TIMO", "BRWE"))
+
+det_plot(det_og, species = c("MIST", "MIHO", "MIME"))
+det_plot(det_og, species = c("WTGD", "COKI", "TIMO", "BRWE"))
+
+```
+
+```{r Restrict & Compare}
+# Bootstrap with modified (restricted) survey configuration to get CIs etc. for all species
+
+# Define pts dataframe for bootstrapping - each row consists of the following:
+#  Transect - transect number
+#  nG - number of non-forest points (should be less than or equal to number in original survey, see Explore chunk for looking at original availability)
+#  nF - number of forest points (same idea as nG)
+# Example: Restricting to transects 1 & 5. 
+#   Take from transect 1: 5 G points & 0 F points (12G, 0F available). 
+#   Take from transect 5: 0 F points & 5 G points (0G, 10F available).
+pts_mod <- data.frame(Transect = c(1,5),
+                      nG = c(5, 0),
+                      nF = c(0, 5))
+# Bootstrap for all species
+booted_mod <- gug_dat1$Species_Code %>%
+                unique() %>%
+                lapply(boot_abundance,
+                       dat = gug_dat1,
+                       nboot = 10^2,
+                       transects = c(1,5),
+                       pts = pts_mod,
+                       verbose = TRUE
+                 ) 
+# Again, pull out abundance and detection separately
+ab_mod <- bind_rows(lapply(booted_mod, function(x){return(x$ab)}))
+det_mod <- bind_rows(lapply(booted_mod, function(x){return(x$det)}))
+# Tabular results of restricted survey
+abundance_table(ab_mod)
+det_table(det_mod)
+
+# Comparison plots
+abundance_plot_comp(ab_og, ab_mod, species = c("MIST", "MIHO", "MIME"))
+abundance_plot_comp(ab_og, ab_mod, species = c("WTGD", "COKI", "TIMO", "BRWE"))
+
+det_plot_comp(det_og, det_mod, species = c("MIST", "MIHO", "MIME"))
+det_plot_comp(det_og, det_mod, species = c("WTGD", "COKI", "TIMO", "BRWE"))
+
+```
