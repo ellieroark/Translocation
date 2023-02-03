@@ -1,0 +1,857 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{longtable}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Guguan Sampling Overview-- 2022 data},
+  pdfauthor={Andris Bibelnieks \& Ellie Roark},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Guguan Sampling Overview-- 2022 data}
+\author{Andris Bibelnieks \& Ellie Roark}
+\date{3/15/2022}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.2 --
+## v ggplot2 3.3.6      v purrr   0.3.4 
+## v tibble  3.1.8      v dplyr   1.0.10
+## v tidyr   1.2.1      v stringr 1.4.1 
+## v readr   2.1.2      v forcats 0.5.2 
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gt)}
+\FunctionTok{library}\NormalTok{(tictoc)}
+\FunctionTok{library}\NormalTok{(readxl)}
+
+\CommentTok{\# Suppress summarize group\_by info}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{dplyr.summarise.inform =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Read first sheet from excel}
+\NormalTok{gug\_dat22 }\OtherTok{\textless{}{-}}\NormalTok{ readxl}\SpecialCharTok{::}\FunctionTok{read\_xlsx}\NormalTok{(}\StringTok{"Data/Guguan Forest Bird Surveys 2022\_QCd\_ER.xlsx"}\NormalTok{, }\AttributeTok{sheet =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\#Get list of relevant coordinates and labels for map}
+\CommentTok{\#coords \textless{}{-} gug\_dat22[,3:5]}
+\CommentTok{\#coords \textless{}{-} unique(coords)}
+
+\CommentTok{\# Clean 2022 data}
+\NormalTok{gug\_dat22 }\OtherTok{\textless{}{-}}\NormalTok{ gug\_dat22 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Type =} \StringTok{\textasciigrave{}}\AttributeTok{Forest OR Grassland}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Species\_Code =}\NormalTok{ Species)}
+
+\DocumentationTok{\#\# remove Fruit Bat observations}
+\NormalTok{gug\_dat22 }\OtherTok{\textless{}{-}}\NormalTok{ gug\_dat22[}\FunctionTok{which}\NormalTok{(gug\_dat22}\SpecialCharTok{$}\NormalTok{Species\_Code }\SpecialCharTok{!=} \StringTok{"MAFB"}\NormalTok{), ]}
+
+\DocumentationTok{\#\# create a count column that groups identical rows}
+\NormalTok{gug\_dat22 }\OtherTok{\textless{}{-}}\NormalTok{ gug\_dat22 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\AttributeTok{.cols=}\FunctionTok{everything}\NormalTok{())) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Count =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{distinct}\NormalTok{()}
+
+\CommentTok{\# gug\_dat22 now contains only separate records for each species recorded at each}
+\CommentTok{\# distance at each location.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Mean detections per station by type{-} 2022}
+\CommentTok{\# first aggregate by total detections per species at each station}
+\NormalTok{sp\_st }\OtherTok{\textless{}{-}}\NormalTok{ gug\_dat22 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Species\_Code, TransStat) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Count =} \FunctionTok{sum}\NormalTok{(Count)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
+
+\DocumentationTok{\#\# add in nondetection data (0 counts) for species not present at a point}
+\NormalTok{sp\_st }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_wider}\NormalTok{(sp\_st, }\AttributeTok{id\_cols =}\NormalTok{ TransStat, }\AttributeTok{names\_from =}\NormalTok{ Species\_Code, }
+                     \AttributeTok{values\_from =}\NormalTok{ Count)}
+
+\NormalTok{sp\_st[}\FunctionTok{is.na}\NormalTok{(sp\_st)] }\OtherTok{\textless{}{-}} \DecValTok{0}
+
+\NormalTok{sp\_st }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_longer}\NormalTok{(sp\_st, }\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{9}\NormalTok{), }\AttributeTok{names\_to =} \StringTok{"Species\_Code"}\NormalTok{)}
+
+\NormalTok{sp\_st }\OtherTok{\textless{}{-}} \FunctionTok{rename}\NormalTok{(sp\_st, }\AttributeTok{Count =}\NormalTok{ value)}
+
+\NormalTok{gug\_dat22 }\OtherTok{\textless{}{-}}\NormalTok{ gug\_dat22[, }\FunctionTok{c}\NormalTok{(}\StringTok{"Transect"}\NormalTok{, }\StringTok{"TransStat"}\NormalTok{, }\StringTok{"Point"}\NormalTok{, }\StringTok{"Type"}\NormalTok{)]}
+\NormalTok{gug\_dat22 }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(gug\_dat22)}
+
+\NormalTok{sp\_st }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(sp\_st, gug\_dat22, }\AttributeTok{by =} \StringTok{"TransStat"}\NormalTok{)}
+
+
+\CommentTok{\# Points per transect by type{-}{-} 2022}
+\NormalTok{types }\OtherTok{\textless{}{-}}\NormalTok{ sp\_st }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(Transect, Point, Type) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{unique}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Transect, Type) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{id\_cols =}\NormalTok{ Transect,}
+              \AttributeTok{names\_from =}\NormalTok{ Type,}
+              \AttributeTok{names\_prefix =} \StringTok{"n"}\NormalTok{,}
+              \AttributeTok{values\_from =}\NormalTok{ n,}
+              \AttributeTok{values\_fill =} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{sp\_st}\SpecialCharTok{$}\NormalTok{Points }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"test"}\NormalTok{)}
+\NormalTok{sp\_st}\SpecialCharTok{$}\NormalTok{Points[}\FunctionTok{which}\NormalTok{(sp\_st}\SpecialCharTok{$}\NormalTok{Type }\SpecialCharTok{==} \StringTok{"F"}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(types}\SpecialCharTok{$}\NormalTok{nF)}
+\NormalTok{sp\_st}\SpecialCharTok{$}\NormalTok{Points[}\FunctionTok{which}\NormalTok{(sp\_st}\SpecialCharTok{$}\NormalTok{Type }\SpecialCharTok{==} \StringTok{"G"}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(types}\SpecialCharTok{$}\NormalTok{nG)}
+\NormalTok{sp\_st}\SpecialCharTok{$}\NormalTok{Points }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(sp\_st}\SpecialCharTok{$}\NormalTok{Points)}
+
+
+\NormalTok{md\_22 }\OtherTok{\textless{}{-}}\NormalTok{ sp\_st }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Species\_Code, Type) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Detections =} \FunctionTok{sum}\NormalTok{(Count), }\AttributeTok{Points =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{Mean\_Det =}\NormalTok{ Detections}\SpecialCharTok{/}\NormalTok{Points, }
+            \AttributeTok{Med\_Det =} \FunctionTok{median}\NormalTok{(Count), }\AttributeTok{IQRange =} \FunctionTok{IQR}\NormalTok{(Count))}
+
+
+\CommentTok{\# Type of each station in each transect}
+\NormalTok{sp\_st }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(Transect, Point, Type) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{unique}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 50 x 3
+##    Transect Point Type 
+##       <dbl> <dbl> <chr>
+##  1        1    11 G    
+##  2        2    10 F    
+##  3        2     9 F    
+##  4        3     1 G    
+##  5        3     2 G    
+##  6        3     4 F    
+##  7        3     5 F    
+##  8        3     6 F    
+##  9        4     1 G    
+## 10        4     3 G    
+## # ... with 40 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#get rid of "Points" column}
+\NormalTok{sp\_st }\OtherTok{\textless{}{-}}\NormalTok{ sp\_st[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bootstrap CIs for abundance with option to simulate fewer survey points.}
+\CommentTok{\# @param species Species code}
+\CommentTok{\# @param dat Dataframe with Transect, Point, Species\_Code, Count, and Type (e.g. sp\_st)}
+\CommentTok{\# @param nboot Number of bootstrap iterations (default 100)}
+\CommentTok{\# @param transects Transects to include (default 1 through 5)}
+\CommentTok{\# @param pts dataframe with number of G and F points to resample within each transect (default all, see examples later)}
+\CommentTok{\#}
+\CommentTok{\# @return List of 2 dataframes, one with bootstrapped detections/station and another with bootstrapped abundance estimates. }
+\CommentTok{\#         For detections, estimates for F and G types. For abundance, estimates for F, G, and Total.}
+\CommentTok{\#}
+\NormalTok{boot\_abundance }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(species, dat, }\AttributeTok{nboot=}\DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, }\AttributeTok{transects =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\AttributeTok{pts =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{verbose =} \ConstantTok{TRUE}\NormalTok{) \{}
+  \CommentTok{\# species = "MIST"; dat = sp\_st; nboot = 10\^{}2; transects = 1; pts = NULL; verbose = TRUE}
+  
+  \ControlFlowTok{if}\NormalTok{(verbose)\{}
+    \FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Bootstrapping for \%s"}\NormalTok{, species))}
+\NormalTok{    tictoc}\SpecialCharTok{::}\FunctionTok{tic}\NormalTok{()}
+\NormalTok{  \}}
+  
+  \CommentTok{\# Get data for that species}
+\NormalTok{  bdat }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{\%\textgreater{}\%}
+          \FunctionTok{filter}\NormalTok{(Species\_Code }\SpecialCharTok{==}\NormalTok{ species }\SpecialCharTok{\&}
+\NormalTok{                   Transect }\SpecialCharTok{\%in\%}\NormalTok{ transects)}
+  
+  \CommentTok{\# Define points within each transect to resample}
+  \ControlFlowTok{if}\NormalTok{(}\FunctionTok{is.null}\NormalTok{(pts)) \{}
+\NormalTok{    pts }\OtherTok{\textless{}{-}}\NormalTok{ bdat }\SpecialCharTok{\%\textgreater{}\%}
+            \FunctionTok{select}\NormalTok{(Transect, Point, Type) }\SpecialCharTok{\%\textgreater{}\%}
+            \FunctionTok{unique}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+            \FunctionTok{group\_by}\NormalTok{(Transect, Type) }\SpecialCharTok{\%\textgreater{}\%}
+            \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+            \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{id\_cols =}\NormalTok{ Transect,}
+                        \AttributeTok{names\_from =}\NormalTok{ Type,}
+                        \AttributeTok{names\_prefix =} \StringTok{"n"}\NormalTok{,}
+                        \AttributeTok{values\_from =}\NormalTok{ n,}
+                        \AttributeTok{values\_fill =} \DecValTok{0}\NormalTok{)}
+    
+    \CommentTok{\# Check that both nG and nF are defined}
+    \ControlFlowTok{if}\NormalTok{(}\SpecialCharTok{!}\StringTok{"nF"} \SpecialCharTok{\%in\%} \FunctionTok{names}\NormalTok{(pts)) \{}
+\NormalTok{      pts}\SpecialCharTok{$}\NormalTok{nF }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{    \}}
+    \ControlFlowTok{if}\NormalTok{(}\SpecialCharTok{!}\StringTok{"nG"} \SpecialCharTok{\%in\%} \FunctionTok{names}\NormalTok{(pts)) \{}
+\NormalTok{      pts}\SpecialCharTok{$}\NormalTok{nG }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  
+  \CommentTok{\# i=1;t=1}
+\NormalTok{  boot\_nF }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(nboot)}
+\NormalTok{  boot\_nG }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(nboot)}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nboot) \{}
+    \ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(transects)) \{}
+      \CommentTok{\# Get F and G counts from transect to resample from}
+\NormalTok{      pop }\OtherTok{\textless{}{-}}\NormalTok{ bdat }\SpecialCharTok{\%\textgreater{}\%} 
+              \FunctionTok{filter}\NormalTok{(Transect }\SpecialCharTok{==}\NormalTok{ transects[t])}
+      
+\NormalTok{      F\_cts }\OtherTok{\textless{}{-}}\NormalTok{ pop }\SpecialCharTok{\%\textgreater{}\%} 
+                \FunctionTok{filter}\NormalTok{(Type }\SpecialCharTok{==} \StringTok{"F"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{select}\NormalTok{(Count) }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{pull}\NormalTok{()}
+\NormalTok{      G\_cts }\OtherTok{\textless{}{-}}\NormalTok{ pop }\SpecialCharTok{\%\textgreater{}\%} 
+                \FunctionTok{filter}\NormalTok{(Type }\SpecialCharTok{==} \StringTok{"G"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{select}\NormalTok{(Count) }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{pull}\NormalTok{()}
+      \CommentTok{\# Get number of points to resample}
+\NormalTok{      t\_pts }\OtherTok{\textless{}{-}}\NormalTok{ pts[}\FunctionTok{which}\NormalTok{(pts}\SpecialCharTok{$}\NormalTok{Transect }\SpecialCharTok{==}\NormalTok{ transects[t]),]}
+      
+      \CommentTok{\# Resample and sum to get total count from each habitat type from this transect}
+\NormalTok{      F\_boot }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{sample}\NormalTok{(F\_cts, t\_pts}\SpecialCharTok{$}\NormalTok{nF, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{      G\_boot }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{sample}\NormalTok{(G\_cts, t\_pts}\SpecialCharTok{$}\NormalTok{nG, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+      
+\NormalTok{      boot\_nF[i] }\OtherTok{\textless{}{-}}\NormalTok{ boot\_nF[i] }\SpecialCharTok{+}\NormalTok{ F\_boot}
+\NormalTok{      boot\_nG[i] }\OtherTok{\textless{}{-}}\NormalTok{ boot\_nG[i] }\SpecialCharTok{+}\NormalTok{ G\_boot}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  
+  \CommentTok{\# Convert boot counts to counts per station}
+\NormalTok{  boot\_nF }\OtherTok{\textless{}{-}} \FunctionTok{case\_when}\NormalTok{(}
+              \FunctionTok{sum}\NormalTok{(pts}\SpecialCharTok{$}\NormalTok{nF) }\SpecialCharTok{\textgreater{}}\DecValTok{0} \SpecialCharTok{\textasciitilde{}}\NormalTok{ boot\_nF}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(pts}\SpecialCharTok{$}\NormalTok{nF), }
+              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \DecValTok{0}
+\NormalTok{              )}
+\NormalTok{  boot\_nG }\OtherTok{\textless{}{-}} \FunctionTok{case\_when}\NormalTok{(}
+              \FunctionTok{sum}\NormalTok{(pts}\SpecialCharTok{$}\NormalTok{nG) }\SpecialCharTok{\textgreater{}}\DecValTok{0} \SpecialCharTok{\textasciitilde{}}\NormalTok{ boot\_nG}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(pts}\SpecialCharTok{$}\NormalTok{nG), }
+              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \DecValTok{0}
+\NormalTok{              )}
+  \CommentTok{\# Convert to F and G abundances}
+\NormalTok{  boot\_abF }\OtherTok{\textless{}{-}}\NormalTok{ boot\_nF }\SpecialCharTok{*}\NormalTok{ (}\FloatTok{165.7}\SpecialCharTok{/}\NormalTok{(pi}\SpecialCharTok{*}\FloatTok{0.25}\NormalTok{))}
+\NormalTok{  boot\_abG }\OtherTok{\textless{}{-}}\NormalTok{ boot\_nG }\SpecialCharTok{*}\NormalTok{ (}\FloatTok{254.4}\SpecialCharTok{/}\NormalTok{(pi}\SpecialCharTok{*}\FloatTok{0.25}\NormalTok{))}
+  \CommentTok{\# Sum for total abundance}
+\NormalTok{  boot\_ab }\OtherTok{\textless{}{-}}\NormalTok{ boot\_abF }\SpecialCharTok{+}\NormalTok{ boot\_abG}
+
+\NormalTok{  ret }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{det =} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Species\_Code =}\NormalTok{ species,}
+                     \AttributeTok{Type =} \FunctionTok{c}\NormalTok{(}\StringTok{"F"}\NormalTok{, }\StringTok{"G"}\NormalTok{),}
+                     \AttributeTok{BMean =} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(boot\_nF), }\FunctionTok{mean}\NormalTok{(boot\_nG)),}
+                     \AttributeTok{Lower =} \FunctionTok{c}\NormalTok{(}\FunctionTok{quantile}\NormalTok{(boot\_nF, }\FloatTok{0.05}\NormalTok{), }\FunctionTok{quantile}\NormalTok{(boot\_nG, }\FloatTok{0.05}\NormalTok{)),}
+                     \AttributeTok{Upper =} \FunctionTok{c}\NormalTok{(}\FunctionTok{quantile}\NormalTok{(boot\_nF, }\FloatTok{0.95}\NormalTok{), }\FunctionTok{quantile}\NormalTok{(boot\_nG, }\FloatTok{0.95}\NormalTok{))}
+\NormalTok{                    ),}
+              \AttributeTok{ab =} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Species\_Code =}\NormalTok{ species,}
+                    \AttributeTok{Type =} \FunctionTok{c}\NormalTok{(}\StringTok{"F"}\NormalTok{, }\StringTok{"G"}\NormalTok{, }\StringTok{"Total"}\NormalTok{),}
+                    \AttributeTok{BMean =} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(boot\_abF), }\FunctionTok{mean}\NormalTok{(boot\_abG), }\FunctionTok{mean}\NormalTok{(boot\_ab)),}
+                    \AttributeTok{Lower =} \FunctionTok{c}\NormalTok{(}\FunctionTok{quantile}\NormalTok{(boot\_abF, }\FloatTok{0.05}\NormalTok{), }\FunctionTok{quantile}\NormalTok{(boot\_abG, }\FloatTok{0.05}\NormalTok{), }\FunctionTok{quantile}\NormalTok{(boot\_ab, }\FloatTok{0.05}\NormalTok{)),}
+                    \AttributeTok{Upper =} \FunctionTok{c}\NormalTok{(}\FunctionTok{quantile}\NormalTok{(boot\_abF, }\FloatTok{0.95}\NormalTok{), }\FunctionTok{quantile}\NormalTok{(boot\_abG, }\FloatTok{0.95}\NormalTok{), }\FunctionTok{quantile}\NormalTok{(boot\_ab, }\FloatTok{0.95}\NormalTok{))}
+\NormalTok{                    )}
+\NormalTok{              )}
+    
+  \ControlFlowTok{if}\NormalTok{(verbose) \{}
+\NormalTok{    tictoc}\SpecialCharTok{::}\FunctionTok{toc}\NormalTok{()}
+\NormalTok{  \}}
+ 
+  \FunctionTok{return}\NormalTok{(ret)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Summarize abundance bootstrapping with gt table}
+\CommentTok{\#}
+\CommentTok{\# @param boot\_dat Dataframe from boot\_abundance}
+\CommentTok{\#}
+\CommentTok{\# @return gt summary table}
+\CommentTok{\#}
+\NormalTok{abundance\_table }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(boot\_dat) \{}
+\NormalTok{  gt\_dat }\OtherTok{\textless{}{-}}\NormalTok{ boot\_dat }\SpecialCharTok{\%\textgreater{}\%} 
+              \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{id\_cols =}\NormalTok{ Species\_Code,}
+                          \AttributeTok{names\_from =}\NormalTok{ Type,}
+                          \AttributeTok{values\_from =}\NormalTok{ BMean}\SpecialCharTok{:}\NormalTok{Upper) }
+\NormalTok{  gt\_dat }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gt}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tab\_header}\NormalTok{( }
+      \AttributeTok{title =} \StringTok{"Bootstrapped Abundance Estimates"}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tab\_spanner}\NormalTok{(}
+      \AttributeTok{label =} \StringTok{"Forest"}\NormalTok{,}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"\_F"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tab\_spanner}\NormalTok{(}
+      \AttributeTok{label =} \StringTok{"Non{-}Forest"}\NormalTok{,}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"\_G"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tab\_spanner}\NormalTok{(}
+      \AttributeTok{label =} \StringTok{"Total"}\NormalTok{,}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"\_Total"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{cols\_label}\NormalTok{(}
+      \AttributeTok{Species\_Code =} \StringTok{"Species Code"}\NormalTok{,}
+      \AttributeTok{BMean\_F =} \StringTok{"Mean"}\NormalTok{,}
+      \AttributeTok{Lower\_F =} \StringTok{"Lower"}\NormalTok{,}
+      \AttributeTok{Upper\_F =} \StringTok{"Upper"}\NormalTok{,}
+      \AttributeTok{BMean\_G =} \StringTok{"Mean"}\NormalTok{,}
+      \AttributeTok{Lower\_G =} \StringTok{"Lower"}\NormalTok{,}
+      \AttributeTok{Upper\_G =} \StringTok{"Upper"}\NormalTok{,}
+      \AttributeTok{BMean\_Total =} \StringTok{"Mean"}\NormalTok{,}
+      \AttributeTok{Lower\_Total =} \StringTok{"Lower"}\NormalTok{,}
+      \AttributeTok{Upper\_Total =} \StringTok{"Upper"}\NormalTok{,}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{fmt\_number}\NormalTok{(}
+      \AttributeTok{columns =} \FunctionTok{names}\NormalTok{(gt\_dat[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]),}
+      \AttributeTok{decimals =} \DecValTok{0}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{data\_color}\NormalTok{(}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"Lower|Upper"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{),}
+      \AttributeTok{colors =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{col\_numeric}\NormalTok{(}
+        \AttributeTok{palette =} \FunctionTok{c}\NormalTok{(}\StringTok{"lightgray"}\NormalTok{),}
+        \AttributeTok{domain =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{data\_color}\NormalTok{(}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"Mean"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{),}
+      \AttributeTok{colors =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{col\_numeric}\NormalTok{(}
+        \AttributeTok{palette =} \FunctionTok{c}\NormalTok{(}\StringTok{"gray"}\NormalTok{),}
+        \AttributeTok{domain =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{\}}
+
+\CommentTok{\# Plot estimated abundances}
+\CommentTok{\# }
+\CommentTok{\# @param boot\_dat Dataframe from boot\_abundance}
+\CommentTok{\# @parm species Vector of species codes to include}
+\CommentTok{\#}
+\CommentTok{\# @return ggplot of estimated abundances}
+\CommentTok{\#}
+\NormalTok{abundance\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(boot\_dat, }\AttributeTok{species =} \ConstantTok{NULL}\NormalTok{) \{}
+  
+  \ControlFlowTok{if}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.null}\NormalTok{(species)) \{}
+\NormalTok{    boot\_dat }\OtherTok{\textless{}{-}}\NormalTok{ boot\_dat }\SpecialCharTok{\%\textgreater{}\%}
+                  \FunctionTok{filter}\NormalTok{(Species\_Code }\SpecialCharTok{\%in\%}\NormalTok{ species)}
+\NormalTok{  \}}
+  
+\NormalTok{  plt }\OtherTok{\textless{}{-}}\NormalTok{ boot\_dat }\SpecialCharTok{\%\textgreater{}\%}
+          \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{y =}\NormalTok{ BMean)) }\SpecialCharTok{+}
+          \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{ymin =}\NormalTok{ Lower, }\AttributeTok{ymax =}\NormalTok{ Upper)) }\SpecialCharTok{+}
+          \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Type) }\SpecialCharTok{+}
+          \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Bootstrapped Abundance Estimates"}\NormalTok{,}
+               \AttributeTok{x =} \StringTok{"Species Code"}\NormalTok{,}
+               \AttributeTok{y =} \StringTok{"Abundance"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{vjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{)) }
+  
+  \FunctionTok{return}\NormalTok{(plt)}
+\NormalTok{\}}
+
+\CommentTok{\# Plot estimated abundances compared between two scenarios.}
+\CommentTok{\# }
+\CommentTok{\# @param boot\_dat Dataframe from boot\_abundance}
+\CommentTok{\# @parm species Vector of species codes to include}
+\CommentTok{\#}
+\CommentTok{\# @return ggplot of estimated abundances}
+\CommentTok{\#}
+\NormalTok{abundance\_plot\_comp }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(boot1, boot2, }\AttributeTok{species =} \ConstantTok{NULL}\NormalTok{) \{}
+  
+\NormalTok{  boot\_combo }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(boot1 }\SpecialCharTok{\%\textgreater{}\%}
+                            \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Config =} \StringTok{"Original"}\NormalTok{),}
+\NormalTok{                          boot2 }\SpecialCharTok{\%\textgreater{}\%}
+                            \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Config =} \StringTok{"Modified"}\NormalTok{))}
+  \ControlFlowTok{if}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.null}\NormalTok{(species)) \{}
+\NormalTok{    boot\_combo }\OtherTok{\textless{}{-}}\NormalTok{ boot\_combo }\SpecialCharTok{\%\textgreater{}\%}
+                    \FunctionTok{filter}\NormalTok{(Species\_Code }\SpecialCharTok{\%in\%}\NormalTok{ species)}
+\NormalTok{  \}}
+  
+\NormalTok{  plt }\OtherTok{\textless{}{-}}\NormalTok{ boot\_combo }\SpecialCharTok{\%\textgreater{}\%}
+          \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{y =}\NormalTok{ BMean, }\AttributeTok{fill =}\NormalTok{ Config)) }\SpecialCharTok{+}
+          \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{ymin =}\NormalTok{ Lower, }\AttributeTok{ymax =}\NormalTok{ Upper), }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Type) }\SpecialCharTok{+}
+          \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Bootstrapped Abundance Estimates"}\NormalTok{,}
+               \AttributeTok{x =} \StringTok{"Species Code"}\NormalTok{,}
+               \AttributeTok{y =} \StringTok{"Abundance"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{vjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{)) }
+  
+  \FunctionTok{return}\NormalTok{(plt)}
+\NormalTok{\}}
+
+\CommentTok{\# Summarize detection bootstrapping with gt table}
+\CommentTok{\#}
+\CommentTok{\# @param boot\_dat Dataframe from boot\_abundance}
+\CommentTok{\#}
+\CommentTok{\# @return gt summary table}
+\CommentTok{\#}
+\NormalTok{det\_table }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(boot\_dat) \{}
+\NormalTok{  gt\_dat }\OtherTok{\textless{}{-}}\NormalTok{ boot\_dat }\SpecialCharTok{\%\textgreater{}\%} 
+              \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{id\_cols =}\NormalTok{ Species\_Code,}
+                          \AttributeTok{names\_from =}\NormalTok{ Type,}
+                          \AttributeTok{values\_from =}\NormalTok{ BMean}\SpecialCharTok{:}\NormalTok{Upper) }
+\NormalTok{  gt\_dat }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gt}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tab\_header}\NormalTok{( }
+      \AttributeTok{title =} \StringTok{"Bootstrapped Detection Estimates"}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tab\_spanner}\NormalTok{(}
+      \AttributeTok{label =} \StringTok{"Forest"}\NormalTok{,}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"\_F"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tab\_spanner}\NormalTok{(}
+      \AttributeTok{label =} \StringTok{"Non{-}Forest"}\NormalTok{,}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"\_G"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{cols\_label}\NormalTok{(}
+      \AttributeTok{Species\_Code =} \StringTok{"Species Code"}\NormalTok{,}
+      \AttributeTok{BMean\_F =} \StringTok{"Mean"}\NormalTok{,}
+      \AttributeTok{Lower\_F =} \StringTok{"Lower"}\NormalTok{,}
+      \AttributeTok{Upper\_F =} \StringTok{"Upper"}\NormalTok{,}
+      \AttributeTok{BMean\_G =} \StringTok{"Mean"}\NormalTok{,}
+      \AttributeTok{Lower\_G =} \StringTok{"Lower"}\NormalTok{,}
+      \AttributeTok{Upper\_G =} \StringTok{"Upper"}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{fmt\_number}\NormalTok{(}
+      \AttributeTok{columns =} \FunctionTok{names}\NormalTok{(gt\_dat[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]),}
+      \AttributeTok{decimals =} \DecValTok{2}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{data\_color}\NormalTok{(}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"Lower|Upper"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{),}
+      \AttributeTok{colors =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{col\_numeric}\NormalTok{(}
+        \AttributeTok{palette =} \FunctionTok{c}\NormalTok{(}\StringTok{"lightgray"}\NormalTok{),}
+        \AttributeTok{domain =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{data\_color}\NormalTok{(}
+      \AttributeTok{columns =} \FunctionTok{grep}\NormalTok{(}\StringTok{"Mean"}\NormalTok{, }\FunctionTok{names}\NormalTok{(gt\_dat), }\AttributeTok{value =} \ConstantTok{TRUE}\NormalTok{),}
+      \AttributeTok{colors =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{col\_numeric}\NormalTok{(}
+        \AttributeTok{palette =} \FunctionTok{c}\NormalTok{(}\StringTok{"gray"}\NormalTok{),}
+        \AttributeTok{domain =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{\}}
+
+\CommentTok{\# Plot estimated detections per station}
+\CommentTok{\# }
+\CommentTok{\# @param boot\_dat Dataframe from boot\_abundance}
+\CommentTok{\# @parm species Vector of species codes to include}
+\CommentTok{\#}
+\CommentTok{\# @return ggplot of estimated detections per station}
+\CommentTok{\#}
+\NormalTok{det\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(boot\_dat, }\AttributeTok{species =} \ConstantTok{NULL}\NormalTok{) \{}
+  
+  \ControlFlowTok{if}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.null}\NormalTok{(species)) \{}
+\NormalTok{    boot\_dat }\OtherTok{\textless{}{-}}\NormalTok{ boot\_dat }\SpecialCharTok{\%\textgreater{}\%}
+                  \FunctionTok{filter}\NormalTok{(Species\_Code }\SpecialCharTok{\%in\%}\NormalTok{ species)}
+\NormalTok{  \}}
+  
+\NormalTok{  plt }\OtherTok{\textless{}{-}}\NormalTok{ boot\_dat }\SpecialCharTok{\%\textgreater{}\%}
+          \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{y =}\NormalTok{ BMean)) }\SpecialCharTok{+}
+          \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{ymin =}\NormalTok{ Lower, }\AttributeTok{ymax =}\NormalTok{ Upper)) }\SpecialCharTok{+}
+          \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Type) }\SpecialCharTok{+}
+          \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Bootstrapped Detection Estimates"}\NormalTok{,}
+               \AttributeTok{x =} \StringTok{"Species Code"}\NormalTok{,}
+               \AttributeTok{y =} \StringTok{"Detections/Station"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{vjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{)) }
+  
+  \FunctionTok{return}\NormalTok{(plt)}
+\NormalTok{\}}
+
+\CommentTok{\# Plot estimated detections per station compared between two scenarios.}
+\CommentTok{\# }
+\CommentTok{\# @param boot\_dat Dataframe from boot\_abundance}
+\CommentTok{\# @parm species Vector of species codes to include}
+\CommentTok{\#}
+\CommentTok{\# @return ggplot of estimated detections per station}
+\CommentTok{\#}
+\NormalTok{det\_plot\_comp }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(boot1, boot2, }\AttributeTok{species =} \ConstantTok{NULL}\NormalTok{) \{}
+  
+\NormalTok{  boot\_combo }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(boot1 }\SpecialCharTok{\%\textgreater{}\%}
+                            \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Config =} \StringTok{"Original"}\NormalTok{),}
+\NormalTok{                          boot2 }\SpecialCharTok{\%\textgreater{}\%}
+                            \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Config =} \StringTok{"Modified"}\NormalTok{))}
+  \ControlFlowTok{if}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.null}\NormalTok{(species)) \{}
+\NormalTok{    boot\_combo }\OtherTok{\textless{}{-}}\NormalTok{ boot\_combo }\SpecialCharTok{\%\textgreater{}\%}
+                    \FunctionTok{filter}\NormalTok{(Species\_Code }\SpecialCharTok{\%in\%}\NormalTok{ species)}
+\NormalTok{  \}}
+  
+\NormalTok{  plt }\OtherTok{\textless{}{-}}\NormalTok{ boot\_combo }\SpecialCharTok{\%\textgreater{}\%}
+          \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{y =}\NormalTok{ BMean, }\AttributeTok{fill =}\NormalTok{ Config)) }\SpecialCharTok{+}
+          \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Species\_Code, }\AttributeTok{ymin =}\NormalTok{ Lower, }\AttributeTok{ymax =}\NormalTok{ Upper), }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Type) }\SpecialCharTok{+}
+          \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Bootstrapped Detection Estimates"}\NormalTok{,}
+               \AttributeTok{x =} \StringTok{"Species Code"}\NormalTok{,}
+               \AttributeTok{y =} \StringTok{"Detections/Station"}\NormalTok{) }\SpecialCharTok{+}
+          \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{vjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{)) }
+  
+  \FunctionTok{return}\NormalTok{(plt)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bootstrap with original survey configuration to get CIs etc. for all species}
+\NormalTok{booted\_og }\OtherTok{\textless{}{-}}\NormalTok{ sp\_st}\SpecialCharTok{$}\NormalTok{Species\_Code }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{unique}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{lapply}\NormalTok{(boot\_abundance,}
+                       \AttributeTok{dat =}\NormalTok{ sp\_st,}
+                       \AttributeTok{nboot =} \DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}
+                       \AttributeTok{transects =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}
+                       \AttributeTok{pts =} \ConstantTok{NULL}\NormalTok{,}
+                       \AttributeTok{verbose =} \ConstantTok{TRUE}
+\NormalTok{                 )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Bootstrapping for COKI"
+## 8.61 sec elapsed
+## [1] "Bootstrapping for MAFD"
+## 8.8 sec elapsed
+## [1] "Bootstrapping for MIHO"
+## 8.82 sec elapsed
+## [1] "Bootstrapping for MIME"
+## 8.69 sec elapsed
+## [1] "Bootstrapping for MIST"
+## 8.56 sec elapsed
+## [1] "Bootstrapping for RUFA"
+## 8.47 sec elapsed
+## [1] "Bootstrapping for TIMO"
+## 8.63 sec elapsed
+## [1] "Bootstrapping for WTGD"
+## 8.61 sec elapsed
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Pull out abundance and detection estimates and combine into dataframes for all species.}
+\NormalTok{ab\_og }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(booted\_og, }\ControlFlowTok{function}\NormalTok{(x)\{}\FunctionTok{return}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{ab)\}))}
+\NormalTok{det\_og }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(booted\_og, }\ControlFlowTok{function}\NormalTok{(x)\{}\FunctionTok{return}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{det)\}))}
+
+
+\CommentTok{\# Tabular summary}
+\FunctionTok{abundance\_table}\NormalTok{(ab\_og)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}{lrrrrrrrrr}
+\caption*{
+{\large Bootstrapped Abundance Estimates}
+} \\ 
+\toprule
+ & \multicolumn{3}{c}{Forest} & \multicolumn{3}{c}{Non-Forest} & \multicolumn{3}{c}{Total} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+Species Code & Mean & Lower & Upper & Mean & Lower & Upper & Mean & Lower & Upper \\ 
+\midrule
+COKI & $0$ & $0$ & $0$ & $11$ & $0$ & $26$ & $11$ & $0$ & $26$ \\ 
+MAFD & $60$ & $35$ & $88$ & $76$ & $50$ & $100$ & $136$ & $94$ & $183$ \\ 
+MIHO & $137$ & $88$ & $185$ & $883$ & $760$ & $1,010$ & $1,021$ & $890$ & $1,166$ \\ 
+MIME & $298$ & $211$ & $378$ & $0$ & $0$ & $0$ & $298$ & $211$ & $378$ \\ 
+MIST & $469$ & $360$ & $554$ & $686$ & $485$ & $873$ & $1,155$ & $949$ & $1,346$ \\ 
+RUFA & $456$ & $386$ & $519$ & $36$ & $25$ & $50$ & $492$ & $427$ & $560$ \\ 
+TIMO & $337$ & $264$ & $422$ & $0$ & $0$ & $0$ & $337$ & $264$ & $422$ \\ 
+WTGD & $37$ & $9$ & $70$ & $0$ & $0$ & $0$ & $37$ & $9$ & $70$ \\ 
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{det\_table}\NormalTok{(det\_og)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}{lrrrrrr}
+\caption*{
+{\large Bootstrapped Detection Estimates}
+} \\ 
+\toprule
+ & \multicolumn{3}{c}{Forest} & \multicolumn{3}{c}{Non-Forest} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Species Code & Mean & Lower & Upper & Mean & Lower & Upper \\ 
+\midrule
+COKI & $0.00$ & $0.00$ & $0.00$ & $0.04$ & $0.00$ & $0.08$ \\ 
+MAFD & $0.28$ & $0.16$ & $0.42$ & $0.24$ & $0.15$ & $0.31$ \\ 
+MIHO & $0.65$ & $0.42$ & $0.88$ & $2.73$ & $2.35$ & $3.12$ \\ 
+MIME & $1.41$ & $1.00$ & $1.79$ & $0.00$ & $0.00$ & $0.00$ \\ 
+MIST & $2.22$ & $1.71$ & $2.62$ & $2.12$ & $1.50$ & $2.69$ \\ 
+RUFA & $2.16$ & $1.83$ & $2.46$ & $0.11$ & $0.08$ & $0.15$ \\ 
+TIMO & $1.59$ & $1.25$ & $2.00$ & $0.00$ & $0.00$ & $0.00$ \\ 
+WTGD & $0.17$ & $0.04$ & $0.33$ & $0.00$ & $0.00$ & $0.00$ \\ 
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot summary {-} Separate species (roughly) by magnitudes of counts}
+\FunctionTok{abundance\_plot}\NormalTok{(ab\_og, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"MIST"}\NormalTok{, }\StringTok{"MIHO"}\NormalTok{, }\StringTok{"MIME"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Table 4 Plus CI-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{abundance\_plot}\NormalTok{(ab\_og, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"WTGD"}\NormalTok{, }\StringTok{"COKI"}\NormalTok{, }\StringTok{"TIMO"}\NormalTok{, }\StringTok{"BRWE"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Table 4 Plus CI-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{det\_plot}\NormalTok{(det\_og, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"MIST"}\NormalTok{, }\StringTok{"MIHO"}\NormalTok{, }\StringTok{"MIME"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Table 4 Plus CI-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{det\_plot}\NormalTok{(det\_og, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"WTGD"}\NormalTok{, }\StringTok{"COKI"}\NormalTok{, }\StringTok{"TIMO"}\NormalTok{, }\StringTok{"BRWE"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Table 4 Plus CI-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bootstrap with modified (restricted) survey configuration to get CIs etc. for all species}
+
+\CommentTok{\# Define pts dataframe for bootstrapping {-} each row consists of the following:}
+\CommentTok{\#  Transect {-} transect number}
+\CommentTok{\#  nG {-} number of non{-}forest points (should be less than or equal to number in original survey, see Explore chunk for looking at original availability)}
+\CommentTok{\#  nF {-} number of forest points (same idea as nG)}
+\CommentTok{\# Example: Restricting to transects 1 \& 5. }
+\CommentTok{\#   Take from transect 1: 5 G points \& 0 F points (12G, 0F available). }
+\CommentTok{\#   Take from transect 5: 0 F points \& 5 G points (0G, 10F available).}
+\NormalTok{pts\_mod }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Transect =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{),}
+                      \AttributeTok{nG =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+                      \AttributeTok{nF =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\CommentTok{\# Bootstrap for all species}
+\NormalTok{booted\_mod }\OtherTok{\textless{}{-}}\NormalTok{ sp\_st}\SpecialCharTok{$}\NormalTok{Species\_Code }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{unique}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{lapply}\NormalTok{(boot\_abundance,}
+                       \AttributeTok{dat =}\NormalTok{ sp\_st,}
+                       \AttributeTok{nboot =} \DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}
+                       \AttributeTok{transects =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{),}
+                       \AttributeTok{pts =}\NormalTok{ pts\_mod,}
+                       \AttributeTok{verbose =} \ConstantTok{TRUE}
+\NormalTok{                 ) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Bootstrapping for COKI"
+## 3.08 sec elapsed
+## [1] "Bootstrapping for MAFD"
+## 3.05 sec elapsed
+## [1] "Bootstrapping for MIHO"
+## 2.92 sec elapsed
+## [1] "Bootstrapping for MIME"
+## 2.94 sec elapsed
+## [1] "Bootstrapping for MIST"
+## 3.06 sec elapsed
+## [1] "Bootstrapping for RUFA"
+## 2.98 sec elapsed
+## [1] "Bootstrapping for TIMO"
+## 3.16 sec elapsed
+## [1] "Bootstrapping for WTGD"
+## 3.01 sec elapsed
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Again, pull out abundance and detection separately}
+\NormalTok{ab\_mod }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(booted\_mod, }\ControlFlowTok{function}\NormalTok{(x)\{}\FunctionTok{return}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{ab)\}))}
+\NormalTok{det\_mod }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(booted\_mod, }\ControlFlowTok{function}\NormalTok{(x)\{}\FunctionTok{return}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{det)\}))}
+\CommentTok{\# Tabular results of restricted survey}
+\FunctionTok{abundance\_table}\NormalTok{(ab\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}{lrrrrrrrrr}
+\caption*{
+{\large Bootstrapped Abundance Estimates}
+} \\ 
+\toprule
+ & \multicolumn{3}{c}{Forest} & \multicolumn{3}{c}{Non-Forest} & \multicolumn{3}{c}{Total} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+Species Code & Mean & Lower & Upper & Mean & Lower & Upper & Mean & Lower & Upper \\ 
+\midrule
+COKI & $0$ & $0$ & $0$ & $27$ & $0$ & $130$ & $27$ & $0$ & $130$ \\ 
+MAFD & $19$ & $0$ & $84$ & $0$ & $0$ & $0$ & $19$ & $0$ & $84$ \\ 
+MIHO & $67$ & $0$ & $127$ & $678$ & $324$ & $972$ & $744$ & $408$ & $1,057$ \\ 
+MIME & $459$ & $253$ & $717$ & $0$ & $0$ & $0$ & $459$ & $253$ & $717$ \\ 
+MIST & $608$ & $380$ & $802$ & $809$ & $324$ & $1,231$ & $1,417$ & $909$ & $1,845$ \\ 
+RUFA & $409$ & $251$ & $549$ & $0$ & $0$ & $0$ & $409$ & $251$ & $549$ \\ 
+TIMO & $516$ & $338$ & $717$ & $0$ & $0$ & $0$ & $516$ & $338$ & $717$ \\ 
+WTGD & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{det\_table}\NormalTok{(det\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}{lrrrrrr}
+\caption*{
+{\large Bootstrapped Detection Estimates}
+} \\ 
+\toprule
+ & \multicolumn{3}{c}{Forest} & \multicolumn{3}{c}{Non-Forest} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Species Code & Mean & Lower & Upper & Mean & Lower & Upper \\ 
+\midrule
+COKI & $0.00$ & $0.00$ & $0.00$ & $0.08$ & $0.00$ & $0.40$ \\ 
+MAFD & $0.09$ & $0.00$ & $0.40$ & $0.00$ & $0.00$ & $0.00$ \\ 
+MIHO & $0.32$ & $0.00$ & $0.60$ & $2.09$ & $1.00$ & $3.00$ \\ 
+MIME & $2.17$ & $1.20$ & $3.40$ & $0.00$ & $0.00$ & $0.00$ \\ 
+MIST & $2.88$ & $1.80$ & $3.80$ & $2.50$ & $1.00$ & $3.80$ \\ 
+RUFA & $1.94$ & $1.19$ & $2.60$ & $0.00$ & $0.00$ & $0.00$ \\ 
+TIMO & $2.44$ & $1.60$ & $3.40$ & $0.00$ & $0.00$ & $0.00$ \\ 
+WTGD & $0.00$ & $0.00$ & $0.00$ & $0.00$ & $0.00$ & $0.00$ \\ 
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Comparison plots}
+\FunctionTok{abundance\_plot\_comp}\NormalTok{(ab\_og, ab\_mod, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"MIST"}\NormalTok{, }\StringTok{"MIHO"}\NormalTok{, }\StringTok{"MIME"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Restrict \& Compare-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{abundance\_plot\_comp}\NormalTok{(ab\_og, ab\_mod, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"WTGD"}\NormalTok{, }\StringTok{"COKI"}\NormalTok{, }\StringTok{"TIMO"}\NormalTok{, }\StringTok{"BRWE"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Restrict \& Compare-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{det\_plot\_comp}\NormalTok{(det\_og, det\_mod, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"MIST"}\NormalTok{, }\StringTok{"MIHO"}\NormalTok{, }\StringTok{"MIME"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Restrict \& Compare-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{det\_plot\_comp}\NormalTok{(det\_og, det\_mod, }\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"WTGD"}\NormalTok{, }\StringTok{"COKI"}\NormalTok{, }\StringTok{"TIMO"}\NormalTok{, }\StringTok{"BRWE"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Guguan_overview_2022ER_files/figure-latex/Restrict \& Compare-4.pdf}
+
+\end{document}
