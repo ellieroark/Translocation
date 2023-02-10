@@ -3,10 +3,11 @@
 ## 
 ## author: Ellie Roark
 ## created: 22 Sept 2021
-## last modified: 22 Sept 2021
+## last modified: 10 Feb 2023
 ## 
 ## inputs: *terrestrial_bird_species_by_island.csv -- file with bird species
 ##            listed by island they occupy, historically and presently
+##         *island_area.csv-- file with land area for each island
 ##
 ##         
 ## outputs: *
@@ -30,7 +31,7 @@ birdisl <- read.csv("./terrestrial_bird_species_by_island.csv",
 birdisl <- birdisl[,1:4]
 
 isldat <- read.csv("./island_area.csv", stringsAsFactors = FALSE)
-isldat <- rename(isldat, island = ï..island)
+isldat <- rename(isldat, island = ?..island)
 
 ## add up number of bird species on each island
 birdisl_sum <- count(birdisl, island)
